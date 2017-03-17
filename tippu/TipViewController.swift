@@ -94,9 +94,23 @@ class TipViewController: UIViewController {
         let tip = originalBillAmount * tipFactor
         let total = originalBillAmount+tip;
         
+        tipLabel.text = String(formatCurrency(value: tip))
+        totalLabel.text = String (formatCurrency(value: total))
+    }
+    
+    func formatCurrency(value: Double) -> String {
         
-        tipLabel.text = String(format: "$%0.2f", tip)
-        totalLabel.text = String (format:"$%0.2f", total)
+        let locale = Locale.current;
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = NumberFormatter.Style.currency
+        formatter.maximumFractionDigits = 2;
+        formatter.locale = Locale(identifier: locale.identifier)
+        
+        
+        let result = formatter.string(from: value as NSNumber);
+        print(result!);
+        return result!;
     }
 
     
